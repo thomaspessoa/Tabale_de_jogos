@@ -1,78 +1,85 @@
-# Campeonato de Futebol da Cidade
+# Projeto Tabela de Campeonato de Futebol
 
-Este é um site completo para gerenciar e exibir a tabela de um campeonato de futebol, com frontend, backend, banco de dados e rotas.
+Este é um projeto full-stack que cria uma tabela de classificação de futebol, incluindo um painel de administração para gerenciar times, jogadores e partidas.
 
-## Visão Geral do Projeto
+---
 
-O projeto é dividido em duas partes principais:
+## Como Rodar o Projeto (Guia Completo)
 
-*   **Frontend:** Uma aplicação Next.js que exibe a tabela do campeonato, páginas individuais dos times e um painel administrativo.
-*   **Backend:** Uma API Node.js/Express que se conecta a um banco de dados MongoDB para gerenciar os dados.
+Siga estes 4 passos para ter a aplicação funcionando localmente.
 
-## Tecnologias Utilizadas
+### Pré-requisitos
 
-*   **Frontend:**
-    *   React / Next.js
-    *   Tailwind CSS
-    *   TypeScript
-    *   Axios
-*   **Backend:**
-    *   Node.js / Express.js
-    *   MongoDB / Mongoose
-    *   JSON Web Tokens (JWT) para autenticação
-    *   bcryptjs para criptografia de senhas
+1.  **Node.js**: [Instale a partir daqui](https://nodejs.org/en/).
+2.  **Conta no MongoDB Atlas**: [Crie uma conta gratuita aqui](https://www.mongodb.com/cloud/atlas/register).
 
-## Pré-requisitos
+---
 
-*   Node.js e npm
-*   MongoDB (local ou em um serviço como o MongoDB Atlas)
+### Passo 1: Configurar o Backend e o Banco de Dados
 
-## Como Rodar o Projeto
-
-1.  **Clone o repositório:**
+1.  **Navegue até a pasta `backend`**:
     ```bash
-    git clone <url-do-repositorio>
-    cd <nome-do-repositorio>
+    cd backend
     ```
 
-2.  **Configure o Backend:**
-    *   Navegue até a pasta `backend`: `cd backend`
-    *   Instale as dependências: `npm install`
-    *   Crie um arquivo `.env` na raiz da pasta `backend` e adicione as seguintes variáveis:
-        ```
-        MONGO_URI=<sua-string-de-conexao-com-o-mongodb>
-        PORT=5001
-        JWT_SECRET=<seu-segredo-jwt>
-        ```
-    *   Inicie o servidor do backend: `npm run dev`
+2.  **Crie o arquivo de ambiente**: Crie um arquivo chamado `.env` dentro da pasta `backend`.
 
-3.  **Configure o Frontend:**
-    *   Navegue até a pasta `frontend`: `cd ../frontend`
-    *   Instale as dependências: `npm install`
-    *   Inicie o servidor do frontend: `npm run dev`
+3.  **Preencha o arquivo `.env`**: Copie e cole o texto abaixo no seu arquivo `.env` e substitua os valores de exemplo.
 
-## Rotas da API
+    ```
+    MONGO_URI=SUA_STRING_DE_CONEXAO_MONGODB
+    PORT=5001
+    JWT_SECRET=SUA_CHAVE_SECRETA_ALEATORIA
+    ```
 
-*   `GET /teams`: Retorna todos os times.
-*   `POST /teams/add`: Adiciona um novo time (requer autenticação).
-*   `GET /teams/:id`: Retorna um time específico.
-*   `POST /teams/update/:id`: Atualiza um time (requer autenticação).
-*   `DELETE /teams/:id`: Deleta um time (requer autenticação).
-*   `GET /players`: Retorna todos os jogadores.
-*   `POST /players/add`: Adiciona um novo jogador (requer autenticação).
-*   `GET /players/team/:teamId`: Retorna todos os jogadores de um time.
-*   `POST /auth/register`: Registra um novo administrador.
-*   `POST /auth/login`: Realiza o login de um administrador.
+    *   **`MONGO_URI`**: Obtenha no site do MongoDB Atlas. Após criar seu cluster gratuito, clique em "Connect" -> "Connect your application" e copie a string. **Lembre-se de substituir `<username>` e `<password>`** na string pelos dados do usuário do banco de dados que você criou no Atlas.
+    *   **`JWT_SECRET`**: Invente qualquer senha longa e segura. Ex: `segredo-do-meu-campeonato-123!`.
 
-## Deploy
+---
 
-*   **Frontend (Vercel):**
-    1.  Conecte seu repositório Git à Vercel.
-    2.  Configure o projeto como um projeto Next.js.
-    3.  A Vercel deve detectar e configurar o build automaticamente.
-*   **Backend (Render):**
-    1.  Crie um novo "Web Service" na Render e conecte seu repositório.
-    2.  Configure o "Build Command" para `npm install` e o "Start Command" para `npm start`.
-    3.  Adicione as variáveis de ambiente (`MONGO_URI`, `PORT`, `JWT_SECRET`) nas configurações do serviço.
+### Passo 2: Criar seu Usuário Administrador
 
-Com isso, você terá o projeto rodando em produção.
+1.  **Ainda no terminal, dentro da pasta `backend`**, execute o comando abaixo. Troque `admin` e `senha123` pelo usuário e senha que você desejar.
+
+    ```bash
+    node scripts/create-admin.js admin senha123
+    ```
+
+2.  Aguarde a mensagem de sucesso no terminal. Se tudo deu certo, seu usuário foi criado no banco de dados.
+
+---
+
+### Passo 3: Iniciar a Aplicação Completa
+
+1.  **Volte para a pasta raiz do projeto**:
+    ```bash
+    cd ..
+    ```
+
+2.  **Execute o script de inicialização**:
+    ```bash
+    ./start.sh
+    ```
+    *Se você estiver no Windows, pode receber um erro. Nesse caso, você precisará abrir dois terminais: um para rodar `npm start` na pasta `backend` e outro para rodar `npm run dev` na pasta `frontend`.*
+
+3.  **Mantenha este terminal aberto**. Ele está rodando os servidores.
+
+---
+
+### Passo 4: Acessar e Usar o Painel de Administrador
+
+1.  **Abra seu navegador de internet** (Chrome, Firefox, etc.).
+
+2.  **Acesse a página de login** digitando o seguinte endereço na barra de URL:
+    ```
+    http://localhost:3003/admin/login
+    ```
+
+3.  **Faça o login** com o usuário e senha que você criou no **Passo 2**.
+
+4.  **Pronto!** Você será redirecionado para o painel de administração, onde poderá:
+    *   Cadastrar novos times.
+    *   Cadastrar jogadores para esses times.
+    *   Registrar os resultados das partidas.
+
+A tabela pública principal estará visível para todos em `http://localhost:3003`.
