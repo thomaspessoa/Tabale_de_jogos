@@ -4,9 +4,9 @@ Este é um projeto full-stack que cria uma tabela de classificação de futebol,
 
 ---
 
-## Como Rodar o Projeto (Guia Completo)
+## Como Rodar o Projeto (Guia Simplificado)
 
-Siga estes 4 passos para ter a aplicação funcionando localmente.
+Siga estes 3 passos para ter a aplicação funcionando localmente.
 
 ### Pré-requisitos
 
@@ -37,19 +37,7 @@ Siga estes 4 passos para ter a aplicação funcionando localmente.
 
 ---
 
-### Passo 2: Criar seu Usuário Administrador
-
-1.  **Ainda no terminal, dentro da pasta `backend`**, execute o comando abaixo. Troque `admin` e `senha123` pelo usuário e senha que você desejar.
-
-    ```bash
-    node scripts/create-admin.js admin senha123
-    ```
-
-2.  Aguarde a mensagem de sucesso no terminal. Se tudo deu certo, seu usuário foi criado no banco de dados.
-
----
-
-### Passo 3: Iniciar a Aplicação Completa
+### Passo 2: Iniciar a Aplicação Completa
 
 1.  **Volte para a pasta raiz do projeto**:
     ```bash
@@ -62,11 +50,11 @@ Siga estes 4 passos para ter a aplicação funcionando localmente.
     ```
     *Se você estiver no Windows, pode receber um erro. Nesse caso, você precisará abrir dois terminais: um para rodar `npm start` na pasta `backend` e outro para rodar `npm run dev` na pasta `frontend`.*
 
-3.  **Mantenha este terminal aberto**. Ele está rodando os servidores.
+3.  **Mantenha este terminal aberto**. Ele está rodando os servidores. Na primeira vez que o backend iniciar, ele criará automaticamente um usuário administrador para você.
 
 ---
 
-### Passo 4: Acessar e Usar o Painel de Administrador
+### Passo 3: Acessar o Painel de Administrador
 
 1.  **Abra seu navegador de internet** (Chrome, Firefox, etc.).
 
@@ -75,11 +63,10 @@ Siga estes 4 passos para ter a aplicação funcionando localmente.
     http://localhost:3003/admin/login
     ```
 
-3.  **Faça o login** com o usuário e senha que você criou no **Passo 2**.
+3.  **Faça o login** com as credenciais padrão:
+    *   **Usuário:** `admin`
+    *   **Senha:** `admin`
 
-4.  **Pronto!** Você será redirecionado para o painel de administração, onde poderá:
-    *   Cadastrar novos times.
-    *   Cadastrar jogadores para esses times.
-    *   Registrar os resultados das partidas.
+4.  **Pronto!** Você será redirecionado para o painel de administração, onde poderá cadastrar times, jogadores e registrar partidas.
 
 A tabela pública principal estará visível para todos em `http://localhost:3003`.
