@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/lib/axios';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -22,7 +22,7 @@ export default function ChampionshipTable() {
   const [teams, setTeams] = useState<Team[]>([]);
 
   useEffect(() => {
-    axios.get('/api/teams')
+    api.get('/teams')
       .then(response => {
         setTeams(response.data);
       })

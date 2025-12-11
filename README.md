@@ -70,3 +70,47 @@ Siga estes 3 passos para ter a aplicação funcionando localmente.
 4.  **Pronto!** Você será redirecionado para o painel de administração, onde poderá cadastrar times, jogadores e registrar partidas.
 
 A tabela pública principal estará visível para todos em `http://localhost:3003`.
+
+---
+
+## Deploy (Produção)
+
+Para colocar seu site no ar, você precisará hospedar o backend e o frontend separadamente. Recomendamos a seguinte combinação gratuita:
+
+*   **Backend (API):** na **Render**.
+*   **Frontend (Site):** na **Vercel**.
+
+Siga os passos abaixo.
+
+### Parte 1: Deploy do Backend na Render
+
+1.  **Crie uma conta** na [Render](https://render.com/).
+2.  No painel, clique em **"New +"** e selecione **"Web Service"**.
+3.  Conecte sua conta do GitHub e selecione o repositório do projeto.
+4.  **Configure o serviço** com as seguintes informações:
+    *   **Name:** Dê um nome único (ex: `campeonato-api`).
+    *   **Root Directory:** `backend`
+    *   **Environment:** `Node`
+    *   **Build Command:** `npm install`
+    *   **Start Command:** `npm start`
+5.  Clique em **"Advanced Settings"** para adicionar as **Variáveis de Ambiente (Environment Variables)**:
+    *   Adicione uma variável com a chave `MONGO_URI` e o valor da sua string de conexão do MongoDB Atlas (a mesma que você usou localmente).
+    *   Adicione outra variável com a chave `JWT_SECRET` e o valor da sua chave secreta (a mesma do `.env` local).
+    *   **IMPORTANTE:** No seu MongoDB Atlas, vá em "Network Access" e adicione o IP `0.0.0.0/0` para permitir que a Render acesse seu banco de dados.
+6.  Clique em **"Create Web Service"**. A Render fará o deploy.
+7.  Após o deploy, copie a URL do seu serviço (algo como `https://seu-servico.onrender.com`). Você precisará dela para o próximo passo.
+
+### Parte 2: Deploy do Frontend na Vercel
+
+1.  **Crie uma conta** na [Vercel](https://vercel.com/) usando sua conta do GitHub.
+2.  No painel, clique em **"Add New... -> Project"**.
+3.  Selecione o repositório do projeto no GitHub.
+4.  **Configure o projeto**:
+    *   A Vercel deve detectar que é um projeto Next.js automaticamente.
+    *   Expanda a seção **"Root Directory"** e selecione a pasta `frontend`.
+5.  Expanda a seção **"Environment Variables"** e adicione a seguinte variável:
+    *   **Key:** `NEXT_PUBLIC_API_URL`
+    *   **Value:** Cole a URL do seu backend da Render que você copiou no passo anterior.
+        *   *Exemplo:* `https://seu-servico.onrender.com`
+6.  Clique em **"Deploy"**.
+7.  Aguarde a finalização do processo. A Vercel fornecerá a URL do seu site, que agora estará funcionando online!

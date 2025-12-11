@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import axios from 'axios';
+import api from '@/lib/axios';
 import Image from 'next/image';
 
 interface Team {
@@ -28,11 +28,11 @@ export default function TeamPage() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`/api/teams/${id}`)
+      api.get(`/teams/${id}`)
         .then(response => setTeam(response.data))
         .catch(error => console.error('Error fetching team:', error));
 
-      axios.get(`/api/players/team/${id}`)
+      api.get(`/players/team/${id}`)
         .then(response => setPlayers(response.data))
         .catch(error => console.error('Error fetching players:', error));
     }

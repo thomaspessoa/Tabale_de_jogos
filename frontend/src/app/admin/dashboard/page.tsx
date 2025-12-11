@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import api from '@/lib/axios';
 import ManageMatches from '@/components/Admin/ManageMatches';
 
 export default function DashboardPage() {
@@ -19,7 +19,7 @@ export default function DashboardPage() {
     if (!token) {
       router.push('/admin/login');
     } else {
-      axios.get('/api/teams')
+      api.get('/teams')
         .then(response => setTeams(response.data))
         .catch(error => console.error('Error fetching teams:', error));
     }
@@ -29,11 +29,11 @@ export default function DashboardPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/teams/add', { name: teamName, shield: teamShield }, {
+      await api.post('/teams/add', { name: teamName, shield: teamShield }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Refresh teams list
-      axios.get('/api/teams')
+      api.get('/teams')
         .then(response => setTeams(response.data))
         .catch(error => console.error('Error fetching teams:', error));
     } catch (error) {
@@ -45,7 +45,7 @@ export default function DashboardPage() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/players/add', { name: playerName, position: playerPosition, team: playerTeam }, {
+      await api.post('/players/add', { name: playerName, position: playerPosition, team: playerTeam }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Refresh players list - you might want to fetch players for a specific team

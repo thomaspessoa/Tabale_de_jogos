@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '@/lib/axios';
 
 interface Team {
   _id: string;
@@ -31,7 +31,7 @@ export default function ManageMatches() {
     useEffect(() => {
         const fetchTeams = async () => {
             try {
-                const res = await axios.get('/api/teams');
+                const res = await api.get('/teams');
                 setTeams(res.data);
             } catch (err) {
                 console.error("Failed to fetch teams", err);
@@ -41,7 +41,7 @@ export default function ManageMatches() {
 
         const fetchMatches = async () => {
              try {
-                const res = await axios.get('/api/matches');
+                const res = await api.get('/matches');
                 setMatches(res.data);
             } catch (err) {
                 console.error("Failed to fetch matches", err);
@@ -66,11 +66,11 @@ export default function ManageMatches() {
         }
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post('/api/matches', form, {
+            const res = await api.post('/matches', form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Refetch matches to display the new one
-             const newMatches = await axios.get('/api/matches');
+             const newMatches = await api.get('/matches');
              setMatches(newMatches.data);
         } catch (err) {
             console.error(err);
