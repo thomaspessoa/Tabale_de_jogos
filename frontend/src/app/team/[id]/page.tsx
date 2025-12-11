@@ -28,11 +28,11 @@ export default function TeamPage() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`/api/teams/${params.id}`)
+      axios.get(`/api/teams/${id}`)
         .then(response => setTeam(response.data))
         .catch(error => console.error('Error fetching team:', error));
 
-      axios.get(`/api/players/team/${params.id}`)
+      axios.get(`/api/players/team/${id}`)
         .then(response => setPlayers(response.data))
         .catch(error => console.error('Error fetching players:', error));
     }

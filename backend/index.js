@@ -24,13 +24,13 @@ connection.once('open', async () => {
       const userCount = await User.countDocuments();
       if (userCount === 0) {
         console.log('Nenhum usuário encontrado. Criando usuário admin padrão...');
-        const hashedPassword = await bcrypt.hash('admin', 10);
+        const hashedPassword = await bcrypt.hash('admsenha123', 10);
         const defaultAdmin = new User({
           username: 'admin',
           password: hashedPassword,
         });
         await defaultAdmin.save();
-        console.log('Usuário "admin" com senha "admin" criado com sucesso.');
+        console.log('Usuário "admin" com senha "admsenha123" criado com sucesso.');
       } else {
         console.log('Usuários já existem no banco de dados. Nenhuma ação necessária.');
       }

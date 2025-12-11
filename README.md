@@ -65,7 +65,7 @@ Siga estes 3 passos para ter a aplicação funcionando localmente.
 
 3.  **Faça o login** com as credenciais padrão:
     *   **Usuário:** `admin`
-    *   **Senha:** `admin`
+    *   **Senha:** `admsenha123`
 
 4.  **Pronto!** Você será redirecionado para o painel de administração, onde poderá cadastrar times, jogadores e registrar partidas.
 
